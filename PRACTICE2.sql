@@ -147,9 +147,9 @@ WHERE Student_ID = 1 AND Course_ID = 'C101';
 
 
 DELETE FROM Teaches
-WHERE Instructor_ID = 'I001';
+WHERE Instructor_ID = 'I002';
 Delete From Instructor 
-where Instructor_ID='I001';
+where Instructor_ID='I002';
 select*from Instructor;
 
 SELECT * FROM Student;
@@ -170,6 +170,70 @@ SELECT Student.Name, Course.Course_Name, Takes.Grade
 FROM Takes
 JOIN Student ON Takes.Student_ID = Student.Student_ID
 JOIN Course ON Takes.Course_ID = Course.Course_ID;
+--
+select *from Instructor;
+select *from Teaches;
+select Instructor.name ,Teaches.Semester
+from Instructor
+
+natural join Teaches ;
+
+drop table Teaches;
+select *from Teaches;
+
+
+INSERT INTO Takes (Student_ID, Course_ID, Semester, Year) 
+VALUES (7, 'C102', 'Spring', 2023);
+select Student.Name,Student.Age,StudentCourse.Course_ID
+from Student , StudentCourse;
+CREATE TABLE Teaches (
+  Instructor_ID VARCHAR(10),
+  Course_ID VARCHAR(10),
+  Semester VARCHAR(10),
+  Year INT,
+  PRIMARY KEY (Instructor_ID, Course_ID, Semester, Year),
+  FOREIGN KEY (Instructor_ID) REFERENCES Instructor(Instructor_ID),
+  FOREIGN KEY (Course_ID) REFERENCES Course(Course_ID)
+);
+
+INSERT INTO Teaches (Instructor_ID, Course_ID, Semester, Year) VALUES
+('I002', 'C102', 'Spring', 2023),
+('I003', 'C103', 'Fall', 2023),
+('I004', 'C104', 'Spring', 2023),
+('I005', 'C105', 'Fall', 2023);
+select Name,Course_ID
+
+from Instructor,Teaches
+where Instructor.Instructor_ID=Teaches.Instructor_ID;
+
+
+select Name,Course_ID
+From Instructor Natural Join Teaches;
+
+Select Name,Course_ID,Age
+from Instructor natural join Teaches natural join Student;
+alter table Student Rename To Student_Info;
+select *from Student_Info;
+select concat(Name,'-',Major)As Student_Info
+from Student_Info;
+select Name, Age 
+from Student_Info
+order by Age desc;
+select *from Student_Info;
+Select Name,Age ,Major from Student_Info
+order by Major asc,Age desc;
+
+insert into Student_Info(Student_ID,Name,Age,Major,Email)
+values 
+(8,'Zamann',23,'Arts','zamann@gmail.com');
+select Name,Age,Major from Student_Info
+order by Major asc ,Age desc;
+
+
+
+
+
+
 
 
 
