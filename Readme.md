@@ -123,5 +123,4 @@ select * from accounts; -- Shows final state after attempt
 The output shows the status as 'Rolled Back'. The final `SELECT *` query confirms that the balances are unchanged (Gopal: 100, Montri: 1001). The atomic transaction successfully prevented the invalid update.
 
 ![Rollback Output](RolledBack.png)
-
 ![AfterAttempt](AfterAttempt.png)
