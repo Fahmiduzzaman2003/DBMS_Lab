@@ -4,32 +4,31 @@ USE Krishna_Nagar;
 
 CREATE TABLE accounts (
 id int auto_increment primary key ,
-name varchar(50)unique not null,
+first_name varchar(50) not null,
+last_name varchar(50) not null,
 balance decimal(12,2) not null,
-currency char(5)not null default 'Mohor')
-engine=InnoDB;
+currency char(5)not null default 'Mohor',
+unique key full_name(first_name,last_name)
+)engine=InnoDB;
   
-INSERT INTO accounts (name, balance, currency) VALUES
-    ('Gopal Bhar', 200.00, 'Mohor'),
-    ('Montri Moshai', 700.00, 'Mohor');  
+INSERT INTO accounts (first_name,last_name,balance, currency) VALUES
+    ('Gopal', 'Bhar', 200.00, 'Mohor'),
+    ('Montri', 'Moshai', 700.00, 'Mohor');  
+    
+
 
 set @@autocommit=0;
 start transaction;
 update accounts 
 set balance =balance+100
-where name='Montri Moshai' and currency='Mohor' and balance <=1000;
+where first_name='Montri' and currency='Mohor' and balance <=1000;
 set @changed:=row_count();
 update accounts
 set balance=balance-100
-where name="Gopal Bhar" and  currency ='Mohor' and balance >=100 and @changed=1;
+where first_name="Gopal" and  currency ='Mohor' and balance >=100 and @changed=1;
 set @command:=if(@changed=1,'Commit','Rollback');
 prepare operation from @command ;
 execute operation ;
 deallocate prepare  operation;
 select 'After attempt ' as step ;
 select *from accounts ;
-
-
-
-
-
